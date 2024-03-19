@@ -20,20 +20,16 @@ public class MagneticField extends Activity implements SensorEventListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gyroscope);
 
-        // TextView'lerin tanımlanması
         magneticXValue = findViewById(R.id.textView1);
         magneticYValue = findViewById(R.id.textView2);
         magneticZValue = findViewById(R.id.textView3);
 
-        // SensorManager oluşturulması
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
-        // Manyetik alan sensörünün alınması
         if (sensorManager != null) {
             magneticFieldSensor = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
         }
 
-        // Manyetik alan sensörünün kullanılabilir olup olmadığının kontrolü
         if (magneticFieldSensor != null) {
             sensorManager.registerListener(this, magneticFieldSensor, SensorManager.SENSOR_DELAY_NORMAL);
         } else {
@@ -45,12 +41,10 @@ public class MagneticField extends Activity implements SensorEventListener {
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        // Manyetik alan verilerinin alınması
         float x = event.values[0];
         float y = event.values[1];
         float z = event.values[2];
 
-        // TextView'lerde gösterilmesi
         magneticXValue.setText("X: " + x);
         magneticYValue.setText("Y: " + y);
         magneticZValue.setText("Z: " + z);
@@ -58,20 +52,17 @@ public class MagneticField extends Activity implements SensorEventListener {
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
-        // Bu metodun kullanılmasına gerek yok, ama uygulama içinde bulunmalı
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        // Uygulama durdurulduğunda sensör dinlemesinin durdurulması
         sensorManager.unregisterListener(this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        // Uygulama tekrar çalıştırıldığında sensör dinlemesinin başlatılması
         if (magneticFieldSensor != null) {
             sensorManager.registerListener(this, magneticFieldSensor, SensorManager.SENSOR_DELAY_NORMAL);
         }

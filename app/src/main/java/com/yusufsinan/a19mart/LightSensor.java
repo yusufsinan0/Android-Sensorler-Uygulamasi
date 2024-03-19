@@ -31,7 +31,6 @@ public class LightSensor extends Activity implements SensorEventListener {
 
         lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
 
-        // Işık sensörünün kullanılabilir olup olmadığının kontrolü
         if (lightSensor != null) {
             sensorManager.registerListener(this, lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
         } else {
@@ -41,29 +40,24 @@ public class LightSensor extends Activity implements SensorEventListener {
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        // Işık değerinin alınması
         float lightValue = event.values[0];
 
-        // TextView'lerde gösterilmesi
         lightValueTextView.setText("Işık değeri : " + lightValue + " lux");
     }
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
-        // Bu metodun kullanılmasına gerek yok, ama uygulama içinde bulunmalı
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        // Uygulama durdurulduğunda sensör dinlemesinin durdurulması
         sensorManager.unregisterListener(this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        // Uygulama tekrar çalıştırıldığında sensör dinlemesinin başlatılması
         if (lightSensor != null) {
             sensorManager.registerListener(this, lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
         }

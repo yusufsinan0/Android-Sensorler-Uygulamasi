@@ -28,13 +28,10 @@ public class TemperatureSensor extends AppCompatActivity implements SensorEventL
         textView3.setText("");
         textView1.setText("");
 
-        // Sensör yöneticisini al
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
-        // Sıcaklık sensörünü al
         temperatureSensor = sensorManager.getDefaultSensor(Sensor.TYPE_TEMPERATURE);
 
-        // Sıcaklık değerlerini gösterecek TextView'i al
         temperatureTextView = findViewById(R.id.textView2);
 
         if (temperatureSensor == null) {
@@ -46,28 +43,23 @@ public class TemperatureSensor extends AppCompatActivity implements SensorEventL
     @Override
     protected void onResume() {
         super.onResume();
-        // Sensör dinleyicisini kaydet
         sensorManager.registerListener(this, temperatureSensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        // Sensör dinleyicisini durdur
         sensorManager.unregisterListener(this);
     }
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        // Sıcaklık sensöründen gelen değerler
         float temperatureValue = event.values[0];
 
-        // Sıcaklık değerlerini TextView'e yaz
         temperatureTextView.setText("Sıcaklık Değeri: " + temperatureValue + " °C");
     }
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
-        // Sensör doğruluğu değiştiğinde gerekli işlemleri yapabilirsiniz, ancak burada bir şey yapmıyoruz.
     }
 }

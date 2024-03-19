@@ -20,20 +20,16 @@ public class Accelerometer extends Activity implements SensorEventListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gyroscope);
 
-        // TextView'lerin tanımlanması
         xValue = (TextView) findViewById(R.id.textView1);
         yValue = (TextView) findViewById(R.id.textView2);
         zValue = (TextView) findViewById(R.id.textView3);
 
-        // SensorManager oluşturulması
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
-        // Ivmeölçer sensörünün alınması
         if (sensorManager != null) {
             accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         }
 
-        // Ivmeölçer sensörünün kullanılabilir olup olmadığının kontrolü
         if (accelerometer != null) {
             sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
         } else {
@@ -45,12 +41,10 @@ public class Accelerometer extends Activity implements SensorEventListener {
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        // Ivme değerlerinin alınması
         float x = event.values[0];
         float y = event.values[1];
         float z = event.values[2];
 
-        // TextView'lerde gösterilmesi
         xValue.setText("X: " + x);
         yValue.setText("Y: " + y);
         zValue.setText("Z: " + z);

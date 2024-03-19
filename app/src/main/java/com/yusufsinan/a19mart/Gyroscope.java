@@ -22,20 +22,16 @@ public class Gyroscope extends AppCompatActivity implements SensorEventListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gyroscope);
 
-        // TextView'lerin tanımlanması
         gyroXValue = findViewById(R.id.textView1);
         gyroYValue = findViewById(R.id.textView2);
         gyroZValue = findViewById(R.id.textView3);
 
-        // SensorManager oluşturulması
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
-        // Jiroskop sensörünün alınması
         if (sensorManager != null) {
             gyroscopeSensor = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
         }
 
-        // Jiroskop sensörünün kullanılabilir olup olmadığının kontrolü
         if (gyroscopeSensor != null) {
             sensorManager.registerListener(this, gyroscopeSensor, SensorManager.SENSOR_DELAY_NORMAL);
         } else {
@@ -47,12 +43,10 @@ public class Gyroscope extends AppCompatActivity implements SensorEventListener 
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        // Jiroskop verilerinin alınması
         float x = event.values[0];
         float y = event.values[1];
         float z = event.values[2];
 
-        // TextView'lerde gösterilmesi
         gyroXValue.setText("X: " + x);
         gyroYValue.setText("Y: " + y);
         gyroZValue.setText("Z: " + z);
@@ -67,14 +61,12 @@ public class Gyroscope extends AppCompatActivity implements SensorEventListener 
     @Override
     protected void onPause() {
         super.onPause();
-        // Uygulama durdurulduğunda sensör dinlemesinin durdurulması
         sensorManager.unregisterListener(this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        // Uygulama tekrar çalıştırıldığında sensör dinlemesinin başlatılması
         if (gyroscopeSensor != null) {
             sensorManager.registerListener(this, gyroscopeSensor, SensorManager.SENSOR_DELAY_NORMAL);
         }

@@ -49,18 +49,15 @@ public class GravitySensor extends AppCompatActivity implements SensorEventListe
     @Override
     protected void onPause() {
         super.onPause();
-        // Sensör dinleyicisini durdur
         sensorManager.unregisterListener(this);
     }
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        // Yerçekimi sensöründen gelen değerler
         float gravityX = event.values[0];
         float gravityY = event.values[1];
         float gravityZ = event.values[2];
 
-        // TextView'lerde gösterilmesi
         xValue.setText("X: " + gravityX);
         yValue.setText("Y: " + gravityY);
         zValue.setText("Z: " + gravityZ);
@@ -69,6 +66,5 @@ public class GravitySensor extends AppCompatActivity implements SensorEventListe
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
-        // Sensör doğruluğu değiştiğinde gerekli işlemleri yapabilirsiniz, ancak burada bir şey yapmıyoruz.
     }
 }
